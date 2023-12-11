@@ -20,6 +20,7 @@ const PostEdit = () => {
     } else {
       alert("저장 실패.");
     }
+    setIsLoading(false);
   };
   useEffect(() => {
     console.log(content);
