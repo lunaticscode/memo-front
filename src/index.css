@@ -29,6 +29,35 @@ main {
   height: calc(100vh - 60px);
 }
 
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.post-list-loading {
+  position: absolute;
+  height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(229, 229, 229, 0.5);
+}
+
+.post-list-loading svg {
+  width: 50px;
+  stroke: #5ed13e;
+  animation: rotate 1s infinite;
+}
+
 footer {
   /* max-width: 600px;
   min-width: 350px;
@@ -44,6 +73,7 @@ footer {
 }
 
 @media screen and (max-width: 550px) {
+  .post-list-loading,
   main,
   footer {
     min-width: 350px;
@@ -52,6 +82,7 @@ footer {
 }
 
 @media screen and (min-width: 551px) {
+  .post-list-loading,
   main,
   footer {
     width: 550px;
