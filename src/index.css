@@ -83,6 +83,9 @@ footer {
   width: calc(100% - 20px);
   margin-left: 10px;
 }
+.postedit-submit.loading {
+  background-color: silver;
+}
 
 footer .nav-menu {
   cursor: pointer;

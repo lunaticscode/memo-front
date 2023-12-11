@@ -36,7 +36,7 @@ const PostEdit = () => {
       <button
         disabled={isLoading}
         onClick={handleClickSubmit}
-        className={"postedit-submit"}
+        className={isLoading ? "postedit-submit loading" : "postedit-submit"}
       >
         저장
       </button>
