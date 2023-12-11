@@ -170,3 +170,32 @@ footer .nav-menu svg {
   margin-top: 8px;
   font-weight: bold;
 }
+
+.signin-form-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 60px);
+}
+.signin-form-input {
+  display: block;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  border-bottom: 1px solid #eeeeee;
+}
+.signin-form-submit {
+  display: block;
+  background-color: #5ed13e;
+  width: 190px;
+  line-height: 30px;
+  height: 30px;
+  text-align: center;
+  margin-top: 10px;
+  color: white;
+  font-weight: bold;
+}
+.signin-form-submit:active {
+  border-bottom-color: #5ed13e;
+}

@@ -28,16 +28,17 @@ const SigninPage = () => {
   };
 
   return (
-    <>
+    <div className="signin-form-wrapper">
       <input
+        className="signin-form-input"
         placeholder="Code"
         disabled={isLoading}
         onChange={handleChangeInput}
       />
-      <button disabled={isLoading} onClick={handleClickButton}>
+      <div className="signin-form-submit" onClick={handleClickButton}>
         Enter
-      </button>
-    </>
+      </div>
+    </div>
   );
 };
 
