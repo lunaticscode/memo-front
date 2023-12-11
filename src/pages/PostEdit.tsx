@@ -22,9 +22,7 @@ const PostEdit = () => {
     }
     setIsLoading(false);
   };
-  useEffect(() => {
-    console.log(content);
-  }, [content]);
+
   return (
     <>
       <div className={"postedit-title"}>{convertDateToString(new Date())}</div>

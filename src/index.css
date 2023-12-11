@@ -110,11 +110,20 @@ footer .nav-menu svg {
 .post-item {
   margin-bottom: 15px;
   border-radius: 5px;
-  border: 1px solid #e7e7e7;
+  border: 1px solid #efefef;
   padding: 10px;
   font-size: 13px;
+  box-shadow: 0px 0px 4px #e7e7e7;
 }
-
+.post-item-date {
+  float: right;
+  font-size: 11px;
+  background-color: #eeeeee;
+  padding: 0px 3px;
+  border-radius: 5px;
+  color: gray;
+  display: inline-block;
+}
 .post-add-button {
   height: 40px;
   background-color: #6ddb4f;

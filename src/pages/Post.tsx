@@ -60,7 +60,7 @@ const PostPage: FC<PostPageProps> = () => {
     const fetchResult = await api
       .get(`/post/${localStorage.getItem("user")}`)
       .then((res) => res.data);
-    console.log(fetchResult);
+
     if (fetchResult.result) {
       setPostItems(fetchResult.data);
     }
