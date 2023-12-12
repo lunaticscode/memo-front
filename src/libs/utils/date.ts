@@ -1,4 +1,4 @@
-const mode = process.env.REACT_APP_MODE || "develop";
+const mode = process.env.REACT_APP_MODE;
 export const convertDateToString = (date: Date, withTime?: boolean) => {
   const koDtf = new Intl.DateTimeFormat("ko", {
     dateStyle: "full",
