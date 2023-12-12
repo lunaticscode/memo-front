@@ -17,10 +17,7 @@ const PostItem: FC<PostItemProps> = ({ id, content, createdAt }) => {
   return (
     <>
       <div className={`post-item-date`}>
-        {convertDateToString(
-          new Date(new Date(createdAt).getTime() + 3600 * 9 * 1000),
-          true
-        )}
+        {convertDateToString(new Date(new Date(createdAt).getTime()), true)}
       </div>
       <div
         style={{ whiteSpace: "pre-line" }}

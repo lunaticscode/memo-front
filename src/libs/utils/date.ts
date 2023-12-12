@@ -6,9 +6,7 @@ export const convertDateToString = (date: Date, withTime?: boolean) => {
     timeZone: "asia/seoul",
   });
   const targetDate =
-    mode === "develop"
-      ? date
-      : new Date(new Date(date).getTime() - 3600 * 9 * 1000);
+    mode === "develop" ? date : new Date(new Date(date).getTime());
   return koDtf.format(new Date(targetDate)).toString();
   //   let year = date.getFullYear().toString();
   //   let month = (date.getMonth() + 1).toString();
