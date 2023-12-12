@@ -1,10 +1,15 @@
+const mode = process.env.REACT_APP_MODE || "develop";
 export const convertDateToString = (date: Date, withTime?: boolean) => {
   const koDtf = new Intl.DateTimeFormat("ko", {
     dateStyle: "full",
     timeStyle: "short",
     timeZone: "asia/seoul",
   });
-  return koDtf.format(new Date(date)).toString();
+  const targetDate =
+    mode === "develop"
+      ? date
+      : new Date(new Date(date).getTime() - 3600 * 9 * 1000);
+  return koDtf.format(new Date(targetDate)).toString();
   //   let year = date.getFullYear().toString();
   //   let month = (date.getMonth() + 1).toString();
   //   let day = date.getDate().toString();
