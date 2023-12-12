@@ -12,6 +12,9 @@ export const api = axios.create();
 api.interceptors.request.use(
   (req) => {
     req.headers["token"] = localStorage.getItem("token");
+    if (req.data && req.data instanceof FormData) {
+      req.headers["Content-Type"] = "multipart/form-data";
+    }
     return req;
   },
   (err) => {
