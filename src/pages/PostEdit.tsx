@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { convertDateToString } from "../libs/utils/date";
 import { api } from "../libs/utils/api";
 
@@ -23,6 +23,13 @@ const PostEdit = () => {
     setIsLoading(false);
   };
 
+  const targetRef = useRef(null);
+
+  // const { setTargetRef } = useInifi();
+
+  useEffect(() => {
+    // setTargetRef(targetRef);
+  }, []);
   return (
     <>
       <div className={"postedit-title"}>{convertDateToString(new Date())}</div>
@@ -39,6 +46,7 @@ const PostEdit = () => {
       >
         저장
       </button>
+      <div ref={targetRef} />
     </>
   );
 };

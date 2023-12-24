@@ -5,6 +5,7 @@ export const convertDateToString = (date: Date, withTime?: boolean) => {
     timeZone: "asia/seoul",
   });
   return koDtf.format(new Date(date)).toString();
+
   //   let year = date.getFullYear().toString();
   //   let month = (date.getMonth() + 1).toString();
   //   let day = date.getDate().toString();
@@ -22,4 +23,18 @@ export const convertDateToString = (date: Date, withTime?: boolean) => {
   //     return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
   //   }
   //   return `${year}-${month}-${day}`;
+};
+
+export const isTodayDate = (date: Date) => {
+  const nowDate = new Date();
+  return (
+    `${nowDate.getFullYear()}-${nowDate.getMonth()}-${nowDate.getDate()}` ===
+    `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+  );
+};
+
+export const isSameDateYmd = (date1: Date, date2: Date) => {
+  const date1Ymd = `${date1.getFullYear()}-${date1.getMonth()}-${date1.getDate()}`;
+  const date2Ymd = `${date2.getFullYear()}-${date2.getMonth()}-${date2.getDate()}`;
+  return date1Ymd === date2Ymd;
 };

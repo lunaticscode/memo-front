@@ -1,7 +1,12 @@
 import { FC } from "react";
+import Calendar from "../components/Calendar";
 
 interface CalendarPageProps {}
 const CalendarPage: FC<CalendarPageProps> = () => {
-  return <></>;
+  return (
+    <>
+      <Calendar defaultValue={new Date()} />
+    </>
+  );
 };
 export default CalendarPage;

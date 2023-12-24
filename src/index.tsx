@@ -1,17 +1,20 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
-import PostPage from "./pages/Post";
-import CalendarPage from "./pages/Calendar";
 import "./index.css";
 import SigninPage from "./pages/Signin";
-import PostEdit from "./pages/PostEdit";
+
+const PostPage = lazy(() => import("./pages/Post"));
+const PostEdit = lazy(() => import("./pages/PostEdit"));
+const PostDetail = lazy(() => import("./pages/PostDetail"));
+const CalendarPage = lazy(() => import("./pages/Calendar"));
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,6 +22,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <PostPage /> },
       { path: "/postedit", element: <PostEdit /> },
+      { path: "/post", element: <PostDetail /> },
       { path: "/signin", element: <SigninPage /> },
       { path: "/calendar", element: <CalendarPage /> },
       { path: "*", element: <PostPage /> },
@@ -27,7 +31,9 @@ const router = createBrowserRouter([
 ]);
 root.render(
   <>
-    <RouterProvider router={router} />
+    <Suspense fallback={<div>page loading.....</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
   </>
 );
 

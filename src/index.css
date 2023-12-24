@@ -149,15 +149,30 @@ footer .nav-menu svg {
   padding: 10px;
   font-size: 13px;
   box-shadow: 0px 0px 4px #e7e7e7;
+  position: relative;
+  height: 50px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 .post-item-date {
   float: right;
   font-size: 11px;
   background-color: #eeeeee;
   padding: 0px 3px;
+  margin-top: -5px;
+  margin-right: -5px;
   border-radius: 5px;
   color: gray;
   display: inline-block;
+}
+.post-item-reaction-wrapper {
+  position: absolute;
+  right: 5px;
+  bottom: 0px;
 }
 .post-add-button {
   height: 40px;
@@ -198,4 +213,42 @@ footer .nav-menu svg {
 }
 .signin-form-submit:active {
   border-bottom-color: #5ed13e;
+}
+
+/* Calendar */
+.calendar-wrapper {
+  width: calc(100% - 20px);
+  margin-left: 10px;
+}
+
+.calendar-date-body {
+  display: grid;
+}
+
+.calendar-date-body.day {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.calendar-date-body.month,
+.calendar-date-body.year {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.calendar-date-cell {
+  height: 100px;
+}
+.calendar-date-cell > div {
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  line-height: 28px;
+  text-align: center;
+}
+.calendar-date-cell.active > div {
+  border-radius: 30px;
+  background-color: #74e655;
+  color: white;
+}
+.calendar-date-cell.today > div {
+  border-radius: 30px;
+  background-color: #eeeeee;
 }

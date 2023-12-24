@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { IconProps } from "../../customTypes";
+
 const CalendarIcon: FC<IconProps> = ({ active, ...styleProps }) => {
   return (
     <svg

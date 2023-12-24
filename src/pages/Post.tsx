@@ -7,10 +7,12 @@ import {
   useState,
 } from "react";
 import PostList from "../components/post/PostList";
+import { createPortal } from "react-dom";
 import PostModal from "../components/post/PostModal";
 import { useNavigate } from "react-router-dom";
 import { api } from "../libs/utils/api";
 import PostLoading from "../components/PostLoading";
+
 // const dummyItems = Array.from({ length: 20 }, (_, index) => ({
 //   id: `${index}-post`,
 //   content: index.toString(36),
