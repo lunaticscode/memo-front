@@ -2,7 +2,14 @@ import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../libs/hooks/useAuth";
 import Footer from "./Footer";
-const validPaths = ["/", "/calendar", "/signin", "/postedit", "/post"];
+const validPaths = [
+  "/",
+  "/calendar",
+  "/signin",
+  "/postedit",
+  "/post",
+  "/calendar/detail",
+];
 interface LayoutProps extends PropsWithChildren {}
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { pathname } = useLocation();

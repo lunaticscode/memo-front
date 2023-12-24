@@ -21,12 +21,14 @@ import PostLoading from "../components/PostLoading";
 interface PostContextProps {
   onClickPostItem: (id: string, mode: "create" | "view") => void;
   loadMorePost: (cursor: number) => void;
+  onClickPostLike: (id: string, like: number) => void;
   //   selectedPostItemId: string;
   //   setSelectedPostItemId: Dispatch<React.SetStateAction<string>>;
 }
 export const PostContext = createContext<PostContextProps>({
   onClickPostItem: () => {},
   loadMorePost: () => {},
+  onClickPostLike: () => {},
   //   selectedPostItemId: "",
   //   setSelectedPostItemId: () => {},
 });
@@ -53,10 +55,27 @@ const PostPage: FC<PostPageProps> = () => {
     setModalMode(mode || "create");
   };
 
+  const onClickPostLike = async (id: string, like: number) => {
+    console.log({ id, like });
+    setIsLoading(true);
+    const updateLikeResult = await api.put("/post/like", {
+      owner: localStorage.getItem("user"),
+      id,
+      like,
+    });
+    setIsLoading(false);
+    if (updateLikeResult) {
+      setPostItemData();
+    } else {
+      alert("좋아요 업데이트 오류..!!");
+    }
+  };
+
   const loadMorePost = (cursor: number) => {};
 
   const contextValue = {
     onClickPostItem,
+    onClickPostLike,
     loadMorePost,
   };
 
@@ -74,6 +93,7 @@ const PostPage: FC<PostPageProps> = () => {
   useEffect(() => {
     setPostItemData();
   }, []);
+
   //   useEffect(() => {
   //     console.log("asdasd");
   //   }, [postItems]);

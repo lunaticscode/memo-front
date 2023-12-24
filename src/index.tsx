@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
 import "./index.css";
 import SigninPage from "./pages/Signin";
+import CalendarDetailPage from "./pages/CalendarDetail";
 
 const PostPage = lazy(() => import("./pages/Post"));
 const PostEdit = lazy(() => import("./pages/PostEdit"));
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "/post", element: <PostDetail /> },
       { path: "/signin", element: <SigninPage /> },
       { path: "/calendar", element: <CalendarPage /> },
+      { path: "/calendar/detail", element: <CalendarDetailPage /> },
       { path: "*", element: <PostPage /> },
     ],
   },

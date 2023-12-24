@@ -25,6 +25,10 @@ export const convertDateToString = (date: Date, withTime?: boolean) => {
   //   return `${year}-${month}-${day}`;
 };
 
+export const isNotIncludeMonth = (selectedDate: Date, targetDate: Date) => {
+  return !(selectedDate.getMonth() === targetDate.getMonth());
+};
+
 export const isTodayDate = (date: Date) => {
   const nowDate = new Date();
   return (
