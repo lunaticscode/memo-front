@@ -28,7 +28,9 @@ const Footer: FC<FooterProps> = () => {
           key={`nav-menu-${index}`}
           onClick={() => handleClickNav(menu.path)}
         >
-          {cloneElement(menu.icon, { active: location.pathname === menu.path })}
+          {cloneElement(menu.icon, {
+            active: location.pathname === menu.path,
+          })}
         </nav>
       ))}
     </footer>

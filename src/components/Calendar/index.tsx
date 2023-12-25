@@ -8,7 +8,7 @@ import {
 } from "react";
 import useControlledValue from "../../hooks/useControlledValue";
 import CalendarBody from "./CalendarBody";
-import CalendarNavigator from "./CalendarNavgiator";
+import CalendarHeader from "./CalendarHeader";
 
 export type DateCellType = "day" | "week" | "month" | "year";
 interface CalendarProps {
@@ -16,6 +16,7 @@ interface CalendarProps {
   defaultValue?: Date;
   value?: Date;
   type?: DateCellType;
+  calendarDataList?: Array<any>;
   onDoubleClickDate?: (date: Date) => void;
 }
 
@@ -33,13 +34,15 @@ export const CalendarContext = createContext<CalendarContextProps>({
   setType: () => {},
   onClickDate: () => {},
   onDoubleClickDate: () => {},
+  calendarDataList: [],
 });
 
 const Calendar: FC<CalendarProps> = ({
-  defaultValue: defaultValueProp,
+  defaultValue: defaultValueProp, // api (Runtime)
   value: valueProp,
   onChange,
   onDoubleClickDate,
+  calendarDataList,
   type: typeProp = "day",
 }) => {
   const [type, setType] = useState(typeProp);
@@ -55,6 +58,7 @@ const Calendar: FC<CalendarProps> = ({
 
   const contextValue = {
     value,
+    calendarDataList,
     setValue,
     onChange,
     onClickDate,
@@ -66,7 +70,7 @@ const Calendar: FC<CalendarProps> = ({
   return (
     <div className={"calendar-wrapper"}>
       <CalendarContext.Provider value={contextValue}>
-        <CalendarNavigator />
+        <CalendarHeader />
         <CalendarBody />
       </CalendarContext.Provider>
     </div>

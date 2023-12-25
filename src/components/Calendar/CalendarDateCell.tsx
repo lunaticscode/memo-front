@@ -22,6 +22,30 @@ const formDateByCellType = (date: Date, type: DateCellType) => {
   }
 };
 
+const setDateCellContentByType = (dataList: Array<any>, type: DateCellType) => {
+  if (type === "day") {
+    return (
+      <div className={dataList.length ? "date-cell-count" : ""}>
+        {dataList.length ? dataList.length : ""}
+      </div>
+    );
+  }
+  if (type === "week") {
+    return (
+      <>
+        {dataList.map((data) => (
+          <div
+            className={`date-cell-content`}
+            key={`date-cell-content-${data.id}`}
+          >
+            {data.content}
+          </div>
+        ))}
+      </>
+    );
+  }
+};
+
 const calendarDateCellBaseCls = "calendar-date-cell";
 interface CalendarDateCellProps extends PropsWithChildren {
   type?: DateCellType;
@@ -36,6 +60,7 @@ const CalendarDateCell: FC<CalendarDateCellProps> = ({
     onClickDate,
     onDoubleClickDate,
     value = new Date(),
+    calendarDataList,
   } = useContext(CalendarContext);
   const handleClickDateCell = useCallback(
     (e: MouseEvent) => {
@@ -62,11 +87,20 @@ const CalendarDateCell: FC<CalendarDateCellProps> = ({
     return `${calendarDateCellBaseCls} ${type}`;
   }, [value, date, type]);
 
+  const dateCellInfo = useMemo(() => {
+    return (
+      calendarDataList?.filter((data) =>
+        isSameDateYmd(new Date(data.targetDate), date)
+      ) || []
+    );
+  }, [calendarDataList, date]);
+
   return (
     <>
       <div className={dateCellCls} onClick={handleClickDateCell}>
         <div>{formDateByCellType(date, type)}</div>
-        {children}
+        {/* {children} */}
+        {setDateCellContentByType(dateCellInfo, type)}
       </div>
     </>
   );

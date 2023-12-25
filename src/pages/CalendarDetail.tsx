@@ -22,9 +22,11 @@ const CalendarDetailPage = () => {
   );
 
   const setDefaultData = async () => {
+    setIsLoading(true);
     const fetchResult = await api.get("/calendar", {
       params: { owner: localStorage.getItem("user"), targetDate },
     });
+    setIsLoading(false);
     if (fetchResult.data) {
       setDefaultDataList(fetchResult.data);
     }
@@ -54,11 +56,16 @@ const CalendarDetailPage = () => {
   }, []);
 
   return (
-    <>
-      <div>{detailTitle}</div>
+    <div className={"calendar-detail-wrapper"}>
+      <div className={"calendar-detail-header"}>{detailTitle}</div>
+      {isLoading && <div style={{ textAlign: "center" }}>Loading...</div>}
       {defaultDataList.map((defaultContent, index) => (
-        <div key={`calendar-data-${index}`}>{defaultContent.content}</div>
+        <div className={"calendar-detail-item"} key={`calendar-data-${index}`}>
+          <div className={"calendar-detail-item-divider"}></div>
+          {defaultContent.content}
+        </div>
       ))}
+
       <textarea
         className={"postedit-textarea"}
         onChange={handleChangeContent}
@@ -71,7 +78,7 @@ const CalendarDetailPage = () => {
       >
         add
       </button>
-    </>
+    </div>
   );
 };
 export default CalendarDetailPage;

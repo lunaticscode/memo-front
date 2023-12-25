@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, Children } from "react";
 import Calendar, { DateCellType } from "../components/Calendar";
 import { api } from "../libs/utils/api";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,7 @@ const CalendarPage: FC<CalendarPageProps> = () => {
       owner: localStorage.getItem("user"),
     });
     console.log("fetchResult.data", fetchResult.data);
+
     if (!fetchResult.data) {
       alert("캘린더 정보 불러오기 실패");
       return;
@@ -53,6 +54,7 @@ const CalendarPage: FC<CalendarPageProps> = () => {
   return (
     <>
       <Calendar
+        calendarDataList={calendarDataList}
         value={nowDate}
         onChange={handleChangeDate}
         onDoubleClickDate={handleDoubleClickDate}
