@@ -15,7 +15,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { isAuth } = useAuth();
-  console.log(pathname);
+  // console.log(pathname);
   useEffect(() => {
     if (!validPaths.includes(pathname)) {
       navigate("/");

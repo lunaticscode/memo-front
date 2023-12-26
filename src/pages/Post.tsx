@@ -56,7 +56,6 @@ const PostPage: FC<PostPageProps> = () => {
   };
 
   const onClickPostLike = async (id: string, like: number) => {
-    console.log({ id, like });
     setIsLoading(true);
     const updateLikeResult = await api.put("/post/like", {
       owner: localStorage.getItem("user"),

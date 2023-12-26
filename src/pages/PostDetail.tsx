@@ -13,7 +13,6 @@ const PostDetail = () => {
       const fetchResult = await api(`/post/detail/${postId}`).then(
         (res) => res.data
       );
-      console.log(fetchResult);
       setPost(fetchResult || null);
     } else {
       setPost(null);

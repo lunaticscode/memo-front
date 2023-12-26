@@ -12,7 +12,7 @@ const CalendarPage: FC<CalendarPageProps> = () => {
   const navigate = useNavigate();
 
   const handleChangeDate = (date: Date, type: DateCellType) => {
-    console.log(nowDate);
+    // console.log(nowDate);
     setType(type);
     setNowDate(date);
     if (type === "day") {
@@ -22,18 +22,12 @@ const CalendarPage: FC<CalendarPageProps> = () => {
     }
   };
 
-  useEffect(() => {
-    console.log({ nowDate });
-  }, [nowDate]);
-
   const setCalendarData = async (targetDate: Date, type: DateCellType) => {
-    console.log("fetch calendar data ....", nowDate);
     const fetchResult = await api.post("/calendar", {
       targetDate,
       type,
       owner: localStorage.getItem("user"),
     });
-    console.log("fetchResult.data", fetchResult.data);
 
     if (!fetchResult.data) {
       alert("캘린더 정보 불러오기 실패");

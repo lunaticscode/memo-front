@@ -47,10 +47,8 @@ api.interceptors.response.use(
       }
       if (err.status === HttpStatusCode.NotFound) console.log("asdasd");
       if (err.status === HttpStatusCode.Unauthorized) {
-        console.log("asdasd");
       }
       if (err.status === HttpStatusCode.Forbidden) {
-        console.log("asdasd");
       }
       handleAxiosError(err);
     }

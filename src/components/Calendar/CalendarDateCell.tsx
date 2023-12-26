@@ -64,7 +64,7 @@ const CalendarDateCell: FC<CalendarDateCellProps> = ({
   } = useContext(CalendarContext);
   const handleClickDateCell = useCallback(
     (e: MouseEvent) => {
-      console.log(e.detail);
+      // console.log(e.detail);
       onClickDate?.(date);
       if (e.detail === 2) {
         onDoubleClickDate?.(date);
