@@ -1,7 +1,8 @@
-import { FC, useEffect, useState, Children } from "react";
+import { FC, useEffect, useState } from "react";
 import Calendar, { DateCellType } from "../components/Calendar";
 import { api } from "../libs/utils/api";
 import { useNavigate } from "react-router-dom";
+import { convertDatetoYmdString } from "../libs/utils/date";
 
 interface CalendarPageProps {}
 const CalendarPage: FC<CalendarPageProps> = () => {
@@ -42,9 +43,7 @@ const CalendarPage: FC<CalendarPageProps> = () => {
   };
 
   const handleDoubleClickDate = async (date: Date) => {
-    const query = `${date.getFullYear()}-${
-      date.getMonth() + 1
-    }-${date.getDate()}`;
+    const query = convertDatetoYmdString(date);
     navigate(`/calendar/detail?date=${query}`);
   };
 

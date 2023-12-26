@@ -20,7 +20,6 @@ const CalendarDetailPage = () => {
       "일",
     [targetDate]
   );
-
   const setDefaultData = async () => {
     setIsLoading(true);
     const fetchResult = await api.get("/calendar", {

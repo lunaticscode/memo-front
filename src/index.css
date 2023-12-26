@@ -239,11 +239,11 @@ footer .nav-menu svg {
   height: 90px;
 }
 .calendar-date-cell > div {
-  width: 28px;
-  height: 28px;
+  /* width: 20px;
+  height: 20px;
   font-size: 14px;
-  line-height: 28px;
-  text-align: center;
+  line-height: 20px;
+  text-align: center; */
 }
 .calendar-date-cell.active {
   border-top-color: #74e655;
@@ -292,13 +292,13 @@ footer .nav-menu svg {
 .date-cell-count {
   display: inline-block;
   font-size: 13px !important;
-  width: 18px;
-  height: 18px;
-  line-height: 25px;
-  margin-left: -5px;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  line-height: 22px;
   background-color: #62d642;
   color: white !important;
-  border-radius: 18px;
+  border-radius: 22px;
 }
 .calendar-detail-item-divider {
   display: inline-block;
