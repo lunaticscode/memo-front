@@ -11,15 +11,17 @@ const CalendarFooter = () => {
     );
   }, [value, calendarDataList]);
 
-  return (
+  return targetDatePlan &&
+    Array.isArray(targetDatePlan) &&
+    targetDatePlan.length ? (
     <div className="calendar-footer-planboard">
-      {targetDatePlan?.map((plan) => (
+      {targetDatePlan.map((plan) => (
         <div className="calendar-footer-planboard-item" key={plan.id}>
           <div className={"calendar-footer-planboard-item-divider"}></div>
           {plan.content}
         </div>
       ))}
     </div>
-  );
+  ) : null;
 };
 export default CalendarFooter;
