@@ -307,3 +307,34 @@ footer .nav-menu svg {
   height: 10px;
   background-color: rgb(89, 225, 59);
 }
+.calendar-detail-item-icon-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+  float: right;
+}
+.calendar-detail-item-icon-wrapper > svg {
+  stroke: rgb(232, 100, 100);
+  cursor: pointer;
+}
+
+.calendar-footer-planboard {
+  width: 100%;
+  border-top: 2px solid rgba(138, 248, 114, 0.662);
+  padding-top: 5px;
+  height: 90px;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+.calendar-footer-planboard-item {
+  font-size: 14px;
+  width: calc(100% - 10px);
+}
+
+.calendar-footer-planboard-item-divider {
+  display: inline-block;
+  width: 5px !important;
+  margin-right: 5px;
+  height: 10px;
+  background-color: rgb(89, 225, 59);
+}

@@ -2,12 +2,13 @@ import { ChangeEvent, FC, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { convertDateToString } from "../libs/utils/date";
 import { api } from "../libs/utils/api";
+import TrashIcon from "../components/icons/TranshIcon";
 
 const CalendarDetailPage = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
   const [defaultDataList, setDefaultDataList] = useState<
-    Array<{ content?: string }>
+    Array<{ content?: string; id: number }>
   >([]);
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +37,7 @@ const CalendarDetailPage = () => {
   };
 
   const handleClickSubmit = async () => {
+    if (isLoading) return;
     setIsLoading(true);
     const submitResult = await api.post("/calendar/add", {
       content,
@@ -50,6 +52,16 @@ const CalendarDetailPage = () => {
     setIsLoading(false);
   };
 
+  const handleClickDelete = async (targetId: number) => {
+    if (isLoading) return;
+    setIsLoading(true);
+    const deleteResult = await api.delete(`/calendar/${targetId}`);
+    setIsLoading(false);
+    if (deleteResult.data.result) {
+      setDefaultData();
+    }
+  };
+
   useEffect(() => {
     setDefaultData();
   }, []);
@@ -62,6 +74,12 @@ const CalendarDetailPage = () => {
         <div className={"calendar-detail-item"} key={`calendar-data-${index}`}>
           <div className={"calendar-detail-item-divider"}></div>
           {defaultContent.content}
+          <div className={"calendar-detail-item-icon-wrapper"}>
+            <TrashIcon
+              onClick={() => handleClickDelete(defaultContent.id)}
+              width={18}
+            />
+          </div>
         </div>
       ))}
 

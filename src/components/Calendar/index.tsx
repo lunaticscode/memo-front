@@ -9,6 +9,7 @@ import {
 import useControlledValue from "../../hooks/useControlledValue";
 import CalendarBody from "./CalendarBody";
 import CalendarHeader from "./CalendarHeader";
+import CalendarFooter from "./CalendarFooter";
 
 export type DateCellType = "day" | "week" | "month" | "year";
 interface CalendarProps {
@@ -72,6 +73,7 @@ const Calendar: FC<CalendarProps> = ({
       <CalendarContext.Provider value={contextValue}>
         <CalendarHeader />
         <CalendarBody />
+        <CalendarFooter />
       </CalendarContext.Provider>
     </div>
   );
