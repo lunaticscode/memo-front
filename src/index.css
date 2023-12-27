@@ -236,7 +236,7 @@ footer .nav-menu svg {
 .calendar-date-cell {
   border-top: 2px solid #eeeeee;
   margin: 0px 2px;
-  height: 90px;
+  height: 80px;
 }
 .calendar-date-cell > div {
   /* width: 20px;
@@ -291,14 +291,15 @@ footer .nav-menu svg {
 
 .date-cell-count {
   display: inline-block;
-  font-size: 13px !important;
-  width: 22px;
-  height: 22px;
+  font-size: 12px !important;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
   text-align: center;
-  line-height: 22px;
+  line-height: 18px;
   background-color: #62d642;
   color: white !important;
-  border-radius: 22px;
+  border-radius: 18px;
 }
 .calendar-detail-item-divider {
   display: inline-block;
