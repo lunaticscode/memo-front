@@ -287,6 +287,7 @@ footer .nav-menu svg {
   font-weight: bold;
   height: 50px;
   line-height: 50px;
+  position: relative;
 }
 
 .date-cell-count {
@@ -338,4 +339,17 @@ footer .nav-menu svg {
   margin-right: 5px;
   height: 10px;
   background-color: rgb(89, 225, 59);
+}
+
+.calendar-navigator-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  top: 15px;
+}
+.calendar-navigator-wrapper > svg {
+  cursor: pointer;
+  stroke-width: 3px;
+  stroke: #6ddb4f;
 }

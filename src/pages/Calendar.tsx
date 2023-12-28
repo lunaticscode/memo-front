@@ -3,6 +3,7 @@ import Calendar, { DateCellType } from "../components/Calendar";
 import { api } from "../libs/utils/api";
 import { useNavigate } from "react-router-dom";
 import { convertDatetoYmdString } from "../libs/utils/date";
+import useDebounce from "../hooks/useDebounce";
 
 interface CalendarPageProps {}
 const CalendarPage: FC<CalendarPageProps> = () => {
@@ -10,17 +11,6 @@ const CalendarPage: FC<CalendarPageProps> = () => {
   const [type, setType] = useState<DateCellType>("day");
   const [calendarDataList, setCalendarDataList] = useState<Array<any>>([]);
   const navigate = useNavigate();
-
-  const handleChangeDate = (date: Date, type: DateCellType) => {
-    // console.log(nowDate);
-    setType(type);
-    setNowDate(date);
-    if (type === "day") {
-      if (nowDate.getMonth() !== date.getMonth()) {
-        setCalendarData(date, type);
-      }
-    }
-  };
 
   const setCalendarData = async (targetDate: Date, type: DateCellType) => {
     const fetchResult = await api.post("/calendar", {
@@ -34,6 +24,18 @@ const CalendarPage: FC<CalendarPageProps> = () => {
       return;
     }
     setCalendarDataList(fetchResult.data || []);
+  };
+
+  const { applyDebounce } = useDebounce(setCalendarData, 3000);
+  const handleChangeDate = (date: Date, type: DateCellType) => {
+    setType(type);
+    setNowDate(date);
+    if (type === "day") {
+      if (nowDate.getMonth() !== date.getMonth()) {
+        // setCalendarData(new Date(date.getTime() + 1000), type);
+        setCalendarData(date, type);
+      }
+    }
   };
 
   const handleDoubleClickDate = async (date: Date) => {
