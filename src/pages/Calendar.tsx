@@ -3,7 +3,7 @@ import Calendar, { DateCellType } from "../components/Calendar";
 import { api } from "../libs/utils/api";
 import { useNavigate } from "react-router-dom";
 import { convertDatetoYmdString } from "../libs/utils/date";
-import useDebounce from "../hooks/useDebounce";
+// import useDebounce from "../hooks/useDebounce";
 
 interface CalendarPageProps {}
 const CalendarPage: FC<CalendarPageProps> = () => {
@@ -14,7 +14,7 @@ const CalendarPage: FC<CalendarPageProps> = () => {
 
   const setCalendarData = async (targetDate: Date, type: DateCellType) => {
     const fetchResult = await api.post("/calendar", {
-      targetDate,
+      targetDate: convertDatetoYmdString(targetDate),
       type,
       owner: localStorage.getItem("user"),
     });
@@ -26,14 +26,13 @@ const CalendarPage: FC<CalendarPageProps> = () => {
     setCalendarDataList(fetchResult.data || []);
   };
 
-  const { applyDebounce } = useDebounce(setCalendarData, 3000);
   const handleChangeDate = (date: Date, type: DateCellType) => {
     setType(type);
     setNowDate(date);
     if (type === "day") {
       if (nowDate.getMonth() !== date.getMonth()) {
-        // setCalendarData(new Date(date.getTime() + 1000), type);
-        setCalendarData(date, type);
+        setCalendarData(new Date(date.getTime() + 1000), type);
+        // setCalendarData(date, type);
       }
     }
   };
