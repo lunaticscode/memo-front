@@ -12,6 +12,7 @@ import {
   isTodayDate,
   isNotIncludeMonth,
 } from "../../libs/utils/date";
+import { isEmptyObject } from "../../libs/utils/typeValidate";
 
 const formDateByCellType = (date: Date, type: DateCellType) => {
   if (type === "day") {
@@ -24,11 +25,25 @@ const formDateByCellType = (date: Date, type: DateCellType) => {
 
 const setDateCellContentByType = (dataList: Array<any>, type: DateCellType) => {
   if (type === "day") {
-    return (
-      <div className={dataList.length ? "date-cell-count" : ""}>
-        {dataList.length ? dataList.length : ""}
-      </div>
-    );
+    const dataListByLabel = dataList.reduce((acc, cur) => {
+      cur.label in acc ? acc[cur.label].push(cur) : (acc[cur.label] = [cur]);
+      return acc;
+    }, {});
+
+    return !isEmptyObject(dataListByLabel) ? (
+      <>
+        {Object.keys(dataListByLabel).map((label) => (
+          <div
+            className={"date-cell-count"}
+            key={`data-label-${label}`}
+            style={{ backgroundColor: label }}
+          />
+        ))}
+        {/* <div className={dataList.length ? "date-cell-count" : ""}>
+          {dataList.length ? dataList.length : ""}
+        </div> */}
+      </>
+    ) : null;
   }
   if (type === "week") {
     return (

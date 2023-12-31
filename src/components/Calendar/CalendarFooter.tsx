@@ -17,7 +17,10 @@ const CalendarFooter = () => {
     <div className="calendar-footer-planboard">
       {targetDatePlan.map((plan) => (
         <div className="calendar-footer-planboard-item" key={plan.id}>
-          <div className={"calendar-footer-planboard-item-divider"}></div>
+          <div
+            className={"calendar-footer-planboard-item-divider"}
+            style={{ backgroundColor: plan.label }}
+          ></div>
           {plan.content}
         </div>
       ))}

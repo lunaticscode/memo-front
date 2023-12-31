@@ -3,14 +3,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { convertDateToString } from "../libs/utils/date";
 import { api } from "../libs/utils/api";
 import TrashIcon from "../components/icons/TranshIcon";
+import { isEmptyObject } from "../libs/utils/typeValidate";
+
+const defaultSelectedLabel = "GREEN";
 
 const CalendarDetailPage = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
   const [defaultDataList, setDefaultDataList] = useState<
-    Array<{ content?: string; id: number }>
+    Array<{ content: string; id: number; label: string }>
   >([]);
   const [content, setContent] = useState("");
+  const [selectedLabel, setSelectedLabel] =
+    useState<string>(defaultSelectedLabel);
+  const [labelData, setLabelData] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState(false);
   const query = new URLSearchParams(search || "");
   const targetDate = query.get("date");
@@ -23,12 +29,25 @@ const CalendarDetailPage = () => {
   );
   const setDefaultData = async () => {
     setIsLoading(true);
-    const fetchResult = await api.get("/calendar", {
-      params: { owner: localStorage.getItem("user"), targetDate },
-    });
+    // const fetchResult = await api.get("/calendar", {
+    //   params: { owner: localStorage.getItem("user"), targetDate },
+    // });
+    // const fetchLabelList = await api.get("/calendar/label");
+    // console.log(fetchLabelList.data);
+    const _fetchResult = await Promise.all([
+      api.get("/calendar", {
+        params: { owner: localStorage.getItem("user"), targetDate },
+      }),
+      api.get("/calendar/label"),
+    ]);
     setIsLoading(false);
-    if (fetchResult.data) {
-      setDefaultDataList(fetchResult.data);
+    if (_fetchResult) {
+      if (_fetchResult[0] && _fetchResult[0].data) {
+        setDefaultDataList(_fetchResult[0].data);
+      }
+      if (_fetchResult[1] && _fetchResult[1].data) {
+        setLabelData(_fetchResult[1].data);
+      }
     }
   };
 
@@ -37,12 +56,18 @@ const CalendarDetailPage = () => {
   };
 
   const handleClickSubmit = async () => {
+    if (!content || !content.toString().trim()) {
+      alert("최소 1글자 이상 작성해주세요.");
+      return;
+    }
     if (isLoading) return;
     setIsLoading(true);
+
     const submitResult = await api.post("/calendar/add", {
       content,
       targetDate,
       owner: localStorage.getItem("user"),
+      label: selectedLabel,
     });
     if (submitResult) {
       navigate(0);
@@ -72,7 +97,10 @@ const CalendarDetailPage = () => {
       {isLoading && <div style={{ textAlign: "center" }}>Loading...</div>}
       {defaultDataList.map((defaultContent, index) => (
         <div className={"calendar-detail-item"} key={`calendar-data-${index}`}>
-          <div className={"calendar-detail-item-divider"}></div>
+          <div
+            className={"calendar-detail-item-divider"}
+            style={{ backgroundColor: defaultContent.label }}
+          ></div>
           {defaultContent.content}
           <div className={"calendar-detail-item-icon-wrapper"}>
             <TrashIcon
@@ -83,18 +111,45 @@ const CalendarDetailPage = () => {
         </div>
       ))}
 
-      <textarea
-        className={"postedit-textarea"}
-        onChange={handleChangeContent}
-        style={{ whiteSpace: "pre-line" }}
-        value={content}
-      ></textarea>
-      <button
-        className={isLoading ? "postedit-submit loading" : "postedit-submit"}
-        onClick={handleClickSubmit}
-      >
-        add
-      </button>
+      <div className="calendar-form-wrapper">
+        <div className={"calendar-form-hedaer"}>
+          <div className={"calendar-form-title"}>일정 추가</div>
+          {!isEmptyObject(labelData) && (
+            <div className={"calendar-labellist-wrapper"}>
+              {Object.keys(labelData).map((color) => (
+                <div
+                  onClick={() => setSelectedLabel(color)}
+                  className={"calendar-label-item"}
+                  key={`calendar-label-item-${color}`}
+                  style={{
+                    backgroundColor: labelData[color],
+                    boxShadow: `0px 0px 7px ${
+                      selectedLabel === color ? labelData[color] : "white"
+                    }`,
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        <textarea
+          className={"calendar-form-textarea"}
+          onChange={handleChangeContent}
+          style={{ whiteSpace: "pre-line" }}
+          value={content}
+        ></textarea>
+        <button
+          className={
+            isLoading ? "calendar-form-submit loading" : "calendar-form-submit"
+          }
+          style={{
+            backgroundColor: labelData[selectedLabel] || "",
+          }}
+          onClick={handleClickSubmit}
+        >
+          add
+        </button>
+      </div>
     </div>
   );
 };

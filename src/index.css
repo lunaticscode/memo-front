@@ -237,7 +237,9 @@ footer .nav-menu svg {
   border-top: 2px solid #eeeeee;
   margin: 0px 2px;
   height: 80px;
+  font-size: 14px;
 }
+
 .calendar-date-cell > div {
   /* width: 20px;
   height: 20px;
@@ -294,20 +296,20 @@ footer .nav-menu svg {
   display: inline-block;
   font-size: 12px !important;
   font-weight: bold;
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   text-align: center;
-  line-height: 18px;
+  line-height: 12px;
   background-color: #62d642;
   color: white !important;
-  border-radius: 18px;
+  border-radius: 5px;
 }
 .calendar-detail-item-divider {
   display: inline-block;
   width: 5px !important;
   margin-right: 5px;
   height: 10px;
-  background-color: rgb(89, 225, 59);
+  background-color: rgb(94, 222, 65);
 }
 .calendar-detail-item-icon-wrapper {
   display: inline-block;
@@ -321,7 +323,7 @@ footer .nav-menu svg {
 
 .calendar-footer-planboard {
   width: 100%;
-  border-top: 2px solid rgba(138, 248, 114, 0.662);
+  border-top: 1px solid rgba(225, 225, 225, 0.662);
   padding-top: 5px;
   height: 90px;
   overflow-y: auto;
@@ -352,4 +354,56 @@ footer .nav-menu svg {
   cursor: pointer;
   stroke-width: 3px;
   stroke: #6ddb4f;
+}
+
+.postedit-submit.loading {
+  background-color: silver;
+}
+.calendar-form-wrapper {
+  padding: 10px;
+}
+.calendar-form-textarea {
+  width: calc(100% - 5px);
+  height: 100px;
+  border: none;
+  border: 1px solid #eeeeee;
+}
+.calendar-form-submit {
+  display: block;
+  width: 100%;
+  height: 40px;
+  font-weight: bold;
+  color: white;
+  background-color: #5ed13e;
+  outline: none;
+  font-size: 17px;
+  border: none;
+  width: 100%;
+  /* margin-left: 10px; */
+}
+.calendar-form-submit.loading {
+  background-color: silver;
+}
+.calendar-form-hedaer {
+  margin-top: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.calendar-form-title {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+}
+.calendar-labellist-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+}
+.calendar-label-item {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-right: 5px;
 }

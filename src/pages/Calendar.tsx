@@ -3,14 +3,23 @@ import Calendar, { DateCellType } from "../components/Calendar";
 import { api } from "../libs/utils/api";
 import { useNavigate } from "react-router-dom";
 import { convertDatetoYmdString } from "../libs/utils/date";
-// import useDebounce from "../hooks/useDebounce";
+import { isEmptyObject } from "../libs/utils/typeValidate";
 
 interface CalendarPageProps {}
 const CalendarPage: FC<CalendarPageProps> = () => {
   const [nowDate, setNowDate] = useState(new Date());
   const [type, setType] = useState<DateCellType>("day");
   const [calendarDataList, setCalendarDataList] = useState<Array<any>>([]);
+  const [labelData, setLabelData] = useState<{ [key: string]: string }>({});
   const navigate = useNavigate();
+
+  const setDefaultLabelData = async () => {
+    const fetchResult = await api.get("/calendar/label");
+    if (!fetchResult || !fetchResult.data || isEmptyObject(fetchResult.data)) {
+      return setLabelData({});
+    }
+    setLabelData(fetchResult.data);
+  };
 
   const setCalendarData = async (targetDate: Date, type: DateCellType) => {
     const fetchResult = await api.post("/calendar", {
@@ -32,7 +41,6 @@ const CalendarPage: FC<CalendarPageProps> = () => {
     if (type === "day") {
       if (nowDate.getMonth() !== date.getMonth()) {
         setCalendarData(new Date(date.getTime() + 1000), type);
-        // setCalendarData(date, type);
       }
     }
   };
@@ -44,6 +52,7 @@ const CalendarPage: FC<CalendarPageProps> = () => {
 
   useEffect(() => {
     setCalendarData(nowDate, type);
+    setDefaultLabelData();
   }, []);
   return (
     <>
