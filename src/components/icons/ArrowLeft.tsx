@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useState } from "react";
-import { IconProps } from "../../customTypes";
 import axios from "axios";
+import { IconProps } from "../../customTypes";
 
 interface ArrowLeftProps extends IconProps {}
 

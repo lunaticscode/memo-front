@@ -17,6 +17,7 @@ const defaultSelectedLabel = "GREEN";
 const CalendarDetailPage = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
+
   const [defaultDataList, setDefaultDataList] = useState<Array<CalendarItem>>(
     []
   );
@@ -102,9 +103,25 @@ const CalendarDetailPage = () => {
   };
   const handleClickUpdate = async (data: CalendarItem) => {
     setUpdateData(data);
-    console.log(data);
     setEditModalOpen(true);
-    // const updateResult = await api.put(`/calendar/${data.id}`, updateData);
+  };
+  const handleSubmitUpdateData = async (data: CalendarItem) => {
+    const { id, label, content } = data;
+    if (!id || !label || !content) {
+      return;
+    }
+    setIsLoading(true);
+    const updateResult = await api.put(`/calendar/${data.id}`, {
+      label,
+      content,
+    });
+    setIsLoading(false);
+    if (updateResult.data.result) {
+      setEditModalOpen(false);
+      navigate(0);
+    } else {
+      alert("수정 실패. 돌쇠에게 문의해주세요.");
+    }
   };
 
   useEffect(() => {
@@ -187,7 +204,9 @@ const CalendarDetailPage = () => {
         open={editModalOpen}
         labelData={labelData}
         data={updateData}
+        isLoading={isLoading}
         onCancel={() => setEditModalOpen(false)}
+        onSubmit={handleSubmitUpdateData}
       />
     </>
   );

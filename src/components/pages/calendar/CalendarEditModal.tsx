@@ -2,11 +2,13 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { CalendarItem } from "../../../pages/CalendarDetail";
 import { isEmptyObject } from "../../../libs/utils/typeValidate";
+import { api } from "../../../libs/utils/api";
 
 interface CalendarEditModalProps {
   labelData: any;
   data: CalendarItem;
   open?: boolean;
+  isLoading?: boolean;
   onCancel?: () => void;
   onSubmit?: (data: CalendarItem) => void;
 }
@@ -18,6 +20,7 @@ const CalendarEditModal: FC<CalendarEditModalProps> = ({
   data,
   labelData,
   open = false,
+  isLoading = false,
   onCancel,
   onSubmit,
 }) => {
@@ -38,12 +41,13 @@ const CalendarEditModal: FC<CalendarEditModalProps> = ({
     onCancel?.();
   };
 
-  const handleClickUpdate = () => {
+  const handleClickUpdate = async () => {
+    if (isLoading) return;
     if (content && selectedLabel && data.id) {
-      alert("대기대기대기대기");
-      //   onSubmit?.({ id: data.id, content, label: selectedLabel });
+      onSubmit?.({ id: data.id, content, label: selectedLabel });
     }
   };
+
   const handleChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
@@ -91,7 +95,11 @@ const CalendarEditModal: FC<CalendarEditModalProps> = ({
             <div className={"calendar-editmodal-btn-wrapper"}>
               <div
                 className={"calendar-editmodal-btn submit"}
-                style={{ backgroundColor: labelData[selectedLabel] }}
+                style={{
+                  backgroundColor: isLoading
+                    ? "#eeeeee"
+                    : labelData[selectedLabel],
+                }}
                 onClick={handleClickUpdate}
               >
                 완료

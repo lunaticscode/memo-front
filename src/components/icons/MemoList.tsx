@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { IconProps } from "../../customTypes";
+// import { IconProps } from "../../global";
 
 const MemoListIcon: FC<IconProps> = ({ active, ...styleProps }) => {
   return (
