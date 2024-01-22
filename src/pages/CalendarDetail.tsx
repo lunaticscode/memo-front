@@ -5,6 +5,7 @@ import { api } from "../libs/utils/api";
 import TrashIcon from "../components/icons/TranshIcon";
 import { isEmptyObject } from "../libs/utils/typeValidate";
 import EditIcon from "../components/icons/EditIcon";
+import CalendarEditModal from "../components/pages/calendar/CalendarEditModal";
 
 export type CalendarItem = {
   content: string;
@@ -24,6 +25,7 @@ const CalendarDetailPage = () => {
     useState<string>(defaultSelectedLabel);
   const [labelData, setLabelData] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const query = new URLSearchParams(search || "");
   const targetDate = query.get("date");
 
@@ -99,7 +101,9 @@ const CalendarDetailPage = () => {
     }
   };
   const handleClickUpdate = async (data: CalendarItem) => {
-    const { id, ...updateData } = data;
+    setUpdateData(data);
+    console.log(data);
+    setEditModalOpen(true);
     // const updateResult = await api.put(`/calendar/${data.id}`, updateData);
   };
 
@@ -108,71 +112,84 @@ const CalendarDetailPage = () => {
   }, []);
 
   return (
-    <div className={"calendar-detail-wrapper"}>
-      <div className={"calendar-detail-header"}>{detailTitle}</div>
-      {isLoading && <div style={{ textAlign: "center" }}>Loading...</div>}
-      {defaultDataList.map((defaultContent, index) => (
-        <div className={"calendar-detail-item"} key={`calendar-data-${index}`}>
+    <>
+      <div className={"calendar-detail-wrapper"}>
+        <div className={"calendar-detail-header"}>{detailTitle}</div>
+        {isLoading && <div style={{ textAlign: "center" }}>Loading...</div>}
+        {defaultDataList.map((defaultContent, index) => (
           <div
-            className={"calendar-detail-item-divider"}
-            style={{ backgroundColor: defaultContent.label }}
-          ></div>
-          {defaultContent.content}
-          <div className={"calendar-detail-item-icon-wrapper"}>
-            <TrashIcon
-              className={"calendar-detail-item-icon delete"}
-              onClick={() => handleClickDelete(defaultContent?.id)}
-              width={18}
-            />
-            <EditIcon
-              className={"calendar-detail-item-icon update"}
-              onClick={() => handleClickUpdate(defaultContent)}
-              width={18}
-            />
-          </div>
-        </div>
-      ))}
-
-      <div className="calendar-form-wrapper">
-        <div className={"calendar-form-hedaer"}>
-          <div className={"calendar-form-title"}>일정 추가</div>
-          {!isEmptyObject(labelData) && (
-            <div className={"calendar-labellist-wrapper"}>
-              {Object.keys(labelData).map((color) => (
-                <div
-                  onClick={() => setSelectedLabel(color)}
-                  className={"calendar-label-item"}
-                  key={`calendar-label-item-${color}`}
-                  style={{
-                    backgroundColor: labelData[color],
-                    boxShadow: `0px 0px 7px ${
-                      selectedLabel === color ? labelData[color] : "white"
-                    }`,
-                  }}
-                />
-              ))}
+            className={"calendar-detail-item"}
+            key={`calendar-data-${index}`}
+          >
+            <div
+              className={"calendar-detail-item-divider"}
+              style={{ backgroundColor: defaultContent.label }}
+            ></div>
+            {defaultContent.content}
+            <div className={"calendar-detail-item-icon-wrapper"}>
+              <TrashIcon
+                className={"calendar-detail-item-icon delete"}
+                onClick={() => handleClickDelete(defaultContent?.id)}
+                width={18}
+              />
+              <EditIcon
+                className={"calendar-detail-item-icon update"}
+                onClick={() => handleClickUpdate(defaultContent)}
+                width={18}
+              />
             </div>
-          )}
+          </div>
+        ))}
+
+        <div className="calendar-form-wrapper">
+          <div className={"calendar-form-hedaer"}>
+            <div className={"calendar-form-title"}>일정 추가</div>
+            {!isEmptyObject(labelData) && (
+              <div className={"calendar-labellist-wrapper"}>
+                {Object.keys(labelData).map((color) => (
+                  <div
+                    onClick={() => setSelectedLabel(color)}
+                    className={"calendar-label-item"}
+                    key={`calendar-label-item-${color}`}
+                    style={{
+                      backgroundColor: labelData[color],
+                      boxShadow: `0px 0px 7px ${
+                        selectedLabel === color ? labelData[color] : "white"
+                      }`,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+          <textarea
+            className={"calendar-form-textarea"}
+            onChange={handleChangeContent}
+            style={{ whiteSpace: "pre-line" }}
+            value={content}
+          ></textarea>
+          <button
+            className={
+              isLoading
+                ? "calendar-form-submit loading"
+                : "calendar-form-submit"
+            }
+            style={{
+              backgroundColor: labelData[selectedLabel] || "",
+            }}
+            onClick={handleClickSubmit}
+          >
+            add
+          </button>
         </div>
-        <textarea
-          className={"calendar-form-textarea"}
-          onChange={handleChangeContent}
-          style={{ whiteSpace: "pre-line" }}
-          value={content}
-        ></textarea>
-        <button
-          className={
-            isLoading ? "calendar-form-submit loading" : "calendar-form-submit"
-          }
-          style={{
-            backgroundColor: labelData[selectedLabel] || "",
-          }}
-          onClick={handleClickSubmit}
-        >
-          add
-        </button>
       </div>
-    </div>
+      <CalendarEditModal
+        open={editModalOpen}
+        labelData={labelData}
+        data={updateData}
+        onCancel={() => setEditModalOpen(false)}
+      />
+    </>
   );
 };
 export default CalendarDetailPage;

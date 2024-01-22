@@ -2,6 +2,7 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Cute+Font&display=swap"); */
 body {
   margin: 0;
+
   /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif; */
@@ -75,20 +76,33 @@ footer {
 @media screen and (max-width: 550px) {
   .post-list-loading,
   main,
-  footer {
+  footer,
+  .calendar-editmodal-mask {
     min-width: 350px;
     width: 100%;
+  }
+  .calendar-editmodal-wrapper {
+    min-width: 330px;
+    width: 98%;
+    margin-left: 1%;
+    /* margin-left: 5%; */
   }
 }
 
 @media screen and (min-width: 551px) {
   .post-list-loading,
   main,
-  footer {
+  footer,
+  .calendar-editmodal-mask {
     width: 550px;
     margin-left: calc(50% - 275px);
   }
+  .calendar-editmodal-wrapper {
+    width: 500px;
+    margin-left: calc(50% - 250px);
+  }
 }
+
 .postedit-title {
   text-align: left;
   text-indent: 10px;
@@ -328,6 +342,26 @@ footer .nav-menu svg {
 /* .calendar-detail-item-icon-wrapper > svg {
 } */
 
+.calendar-editmodal-mask {
+  position: absolute;
+  z-index: 1000;
+  height: 100vh;
+  background-color: #eeeeeec8;
+  top: 0px;
+}
+.calendar-editmodal-wrapper {
+  z-index: 1001;
+  position: absolute;
+  top: 100px;
+  height: 250px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px lightgray;
+  background-color: white;
+}
+
+.calendar-editmodal-form {
+  padding: 5px 10px;
+}
 .calendar-footer-planboard {
   width: 100%;
   border-top: 1px solid rgba(225, 225, 225, 0.662);
@@ -413,4 +447,29 @@ footer .nav-menu svg {
   border: 2px solid white;
   border-radius: 10px;
   margin-right: 5px;
+}
+.calendar-label-item.small {
+  width: 18px;
+  height: 18px;
+  margin-right: 3px;
+}
+
+.calendar-editmodal-btn-wrapper {
+  margin-top: 5px;
+}
+.calendar-editmodal-btn {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  margin-top: 8px;
+}
+/* .calenar-editmodal-btn.submit {
+} */
+
+.calenar-editmodal-btn.cancel {
+  background-color: #eeeeee;
+  width: 100%;
 }
