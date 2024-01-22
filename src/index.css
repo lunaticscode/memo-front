@@ -325,7 +325,7 @@ footer .nav-menu svg {
   width: 100%;
   border-top: 1px solid rgba(225, 225, 225, 0.662);
   padding-top: 5px;
-  height: 90px;
+  height: calc(100vh - 610px);
   overflow-y: auto;
   white-space: nowrap;
 }

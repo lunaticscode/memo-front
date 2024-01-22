@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, useState } from "react";
 import { IconProps } from "../../customTypes";
+import axios from "axios";
 
 interface ArrowLeftProps extends IconProps {}
 
@@ -11,7 +12,6 @@ const ArrowLeft: FC<ArrowLeftProps> = ({ active, ...props }) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      //   dataSlot="icon"
       className="w-6 h-6"
       {...props}
     >
@@ -24,3 +24,28 @@ const ArrowLeft: FC<ArrowLeftProps> = ({ active, ...props }) => {
   );
 };
 export default ArrowLeft;
+const getApi = async (path: string, params: any) => {
+  return await axios.get(path, { params });
+};
+const postApi = async (path: string, data: any) => {
+  return await axios.post(path, data);
+};
+
+type ApiMethods = "get" | "post";
+type ApiParams = [string, any];
+type APiFetcher = (...args: ApiParams) => Promise<any>;
+const mapMethodToFetcher: {
+  [key in ApiMethods]: APiFetcher;
+} = {
+  get: (...args: ApiParams) => getApi(...args),
+  post: (...args: ApiParams) => postApi(...args),
+};
+console.log(mapMethodToFetcher);
+// type ApiFetcherType = { [key in ApiMethods]: (params: ApiParms) => void };
+// const apiFetcher: ApiFetcherType = {
+//   get: (...args: ApiParms) => {},
+//   post: () => {},
+//   delete: () => {},
+//   patch: () => {},
+//   put: () => {},
+// };

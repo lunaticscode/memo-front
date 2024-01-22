@@ -15,6 +15,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { isAuth } = useAuth();
+  console.log(process.env.REACT_APP_API_KEY);
   // console.log(pathname);
   useEffect(() => {
     if (!validPaths.includes(pathname)) {

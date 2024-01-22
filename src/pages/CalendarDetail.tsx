@@ -4,22 +4,34 @@ import { convertDateToString } from "../libs/utils/date";
 import { api } from "../libs/utils/api";
 import TrashIcon from "../components/icons/TranshIcon";
 import { isEmptyObject } from "../libs/utils/typeValidate";
+import EditIcon from "../components/icons/EditIcon";
 
+type CalendarItem = {
+  content: string;
+  id: number;
+  label: string;
+};
 const defaultSelectedLabel = "GREEN";
 
 const CalendarDetailPage = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
-  const [defaultDataList, setDefaultDataList] = useState<
-    Array<{ content: string; id: number; label: string }>
-  >([]);
-  const [content, setContent] = useState("");
+  const [defaultDataList, setDefaultDataList] = useState<Array<CalendarItem>>(
+    []
+  );
+  const [content, setContent] = useState<string>("");
   const [selectedLabel, setSelectedLabel] =
     useState<string>(defaultSelectedLabel);
   const [labelData, setLabelData] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState(false);
   const query = new URLSearchParams(search || "");
   const targetDate = query.get("date");
+
+  const [updateData, setUpdateData] = useState<CalendarItem>({
+    content: "",
+    id: -1,
+    label: "",
+  });
 
   const detailTitle = useMemo(
     () =>
@@ -86,6 +98,10 @@ const CalendarDetailPage = () => {
       setDefaultData();
     }
   };
+  const handleClickUpdate = async (data: CalendarItem) => {
+    const { id, ...updateData } = data;
+    const updateResult = await api.put(`/calendar/${data.id}`, updateData);
+  };
 
   useEffect(() => {
     setDefaultData();
@@ -104,7 +120,13 @@ const CalendarDetailPage = () => {
           {defaultContent.content}
           <div className={"calendar-detail-item-icon-wrapper"}>
             <TrashIcon
-              onClick={() => handleClickDelete(defaultContent.id)}
+              className={"calendar-detail-item-icon delete"}
+              onClick={() => handleClickDelete(defaultContent?.id)}
+              width={18}
+            />
+            <EditIcon
+              className={"calendar-detail-item-icon delete"}
+              onClick={() => handleClickUpdate(defaultContent)}
               width={18}
             />
           </div>
