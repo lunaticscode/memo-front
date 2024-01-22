@@ -100,7 +100,7 @@ const CalendarDetailPage = () => {
   };
   const handleClickUpdate = async (data: CalendarItem) => {
     const { id, ...updateData } = data;
-    const updateResult = await api.put(`/calendar/${data.id}`, updateData);
+    // const updateResult = await api.put(`/calendar/${data.id}`, updateData);
   };
 
   useEffect(() => {

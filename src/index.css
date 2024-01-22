@@ -316,10 +316,16 @@ footer .nav-menu svg {
   vertical-align: middle;
   float: right;
 }
-.calendar-detail-item-icon-wrapper > svg {
+.calendar-detail-item-icon.delete {
   stroke: rgb(232, 100, 100);
   cursor: pointer;
 }
+.calendar-detail-item-icon.update {
+  stroke: rgb(61, 57, 57);
+  cursor: pointer;
+}
+/* .calendar-detail-item-icon-wrapper > svg {
+} */
 
 .calendar-footer-planboard {
   width: 100%;
