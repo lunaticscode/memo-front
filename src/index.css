@@ -322,6 +322,7 @@ footer .nav-menu svg {
 }
 .calendar-detail-item-icon.update {
   stroke: rgb(61, 57, 57);
+  margin-left: 5px;
   cursor: pointer;
 }
 /* .calendar-detail-item-icon-wrapper > svg {

@@ -6,7 +6,7 @@ import TrashIcon from "../components/icons/TranshIcon";
 import { isEmptyObject } from "../libs/utils/typeValidate";
 import EditIcon from "../components/icons/EditIcon";
 
-type CalendarItem = {
+export type CalendarItem = {
   content: string;
   id: number;
   label: string;
@@ -125,7 +125,7 @@ const CalendarDetailPage = () => {
               width={18}
             />
             <EditIcon
-              className={"calendar-detail-item-icon delete"}
+              className={"calendar-detail-item-icon update"}
               onClick={() => handleClickUpdate(defaultContent)}
               width={18}
             />
