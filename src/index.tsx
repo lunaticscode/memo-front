@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import "./index.css";
 import SigninPage from "./pages/Signin";
 import CalendarDetailPage from "./pages/CalendarDetail";
+import * as swRegistration from "./serviceWorkerRegistration";
 
 const PostPage = lazy(() => import("./pages/Post"));
 const PostEdit = lazy(() => import("./pages/PostEdit"));
@@ -43,3 +44,11 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+swRegistration.register({
+  onUpdate(registration) {
+    console.log(registration.pushManager.permissionState());
+  },
+  onSuccess(registration) {
+    console.log(registration.pushManager.permissionState());
+  },
+});
