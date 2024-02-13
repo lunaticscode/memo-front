@@ -3,11 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import MemoListIcon from "./icons/MemoList";
 import CalendarIcon from "./icons/CalendarIcon";
 import EditIcon from "./icons/EditIcon";
+import PhotoIcon from "./icons/Photo";
 
-type navMenuPaths = "/" | "/calendar" | "/postedit";
-const navMenus: Array<{ path: navMenuPaths; icon: ReactElement }> = [
+type NavMenuPaths = "/" | "/calendar" | "/album" | "/postedit";
+const navMenus: Array<{ path: NavMenuPaths; icon: ReactElement }> = [
   { path: "/", icon: <MemoListIcon /> },
   { path: "/postedit", icon: <EditIcon /> },
+  { path: "/album", icon: <PhotoIcon /> },
   { path: "/calendar", icon: <CalendarIcon /> },
 ];
 
@@ -16,7 +18,7 @@ const Footer: FC<FooterProps> = () => {
   const location = useLocation();
 
   const navigate = useNavigate();
-  const handleClickNav = (path: navMenuPaths) => {
+  const handleClickNav = (path: NavMenuPaths) => {
     navigate(path);
   };
 

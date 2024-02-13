@@ -6,6 +6,7 @@ const validPaths = [
   "/",
   "/calendar",
   "/signin",
+  "/album",
   "/postedit",
   "/post",
   "/calendar/detail",

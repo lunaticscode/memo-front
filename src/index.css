@@ -473,3 +473,37 @@ footer .nav-menu svg {
   background-color: #eeeeee;
   width: 100%;
 }
+
+.album-page-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 20px);
+  padding: 10px 0px;
+}
+
+.album-item-wrapper {
+  width: 330px;
+  padding: 5px;
+  border: 1px solid #eeeeee;
+  height: fit-content;
+  box-shadow: 0px 0px 4px silver;
+  text-align: center;
+  border-radius: 5px;
+}
+.album-item-wrapper > img {
+  width: 320px;
+}
+
+.album-title-wrapper {
+  float: left;
+  text-align: left;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  border-radius: 5px;
+  color: white;
+  padding: 0px 5px;
+  font-weight: bold;
+  background-color: #6ddb4f;
+}
