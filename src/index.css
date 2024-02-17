@@ -475,11 +475,11 @@ footer .nav-menu svg {
 }
 
 .album-page-wrapper {
-  display: flex;
-  justify-content: center;
   width: 100%;
-  height: calc(100vh - 20px);
+  margin-left: calc(50% - 165px);
+  height: calc(100vh - 80px);
   padding: 10px 0px;
+  overflow-y: auto;
 }
 
 .album-item-wrapper {
@@ -490,6 +490,7 @@ footer .nav-menu svg {
   box-shadow: 0px 0px 4px silver;
   text-align: center;
   border-radius: 5px;
+  margin-bottom: 10px;
 }
 .album-item-wrapper > img {
   width: 320px;

@@ -9,7 +9,7 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
-
+import { message } from "./fcm";
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
     // [::1] is the IPv6 localhost address.
@@ -25,9 +25,12 @@ type Config = {
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 };
 
-export function register(config?: Config) {
+export async function register(config?: Config) {
+  console.log(message);
+  const permission = await Notification.requestPermission();
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
+
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
@@ -36,9 +39,10 @@ export function register(config?: Config) {
       return;
     }
 
-    window.addEventListener("load", () => {
+    window.addEventListener("load", async () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-
+      // const permission = await Notification.requestPermission();
+      console.log(permission);
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
