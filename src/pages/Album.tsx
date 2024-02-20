@@ -5,6 +5,33 @@ const AlbumPage = () => {
   return (
     <div className={"album-page-wrapper"}>
       <AlbumItem>
+        <AlbumTitle>2024.02.19</AlbumTitle>
+        <img
+          src={"/album/kuhee_insoo_0219_1.jpeg"}
+          alt={"kuhee_insoo_0219_1.jpeg"}
+        ></img>
+        <img
+          src={"/album/kuhee_insoo_0219_2.jpeg"}
+          alt={"kuhee_insoo_0219_2.jpeg"}
+        ></img>
+        <img
+          src={"/album/kuhee_insoo_0219_3.jpeg"}
+          alt={"kuhee_insoo_0219_3.jpeg"}
+        ></img>
+        <img
+          src={"/album/kuhee_insoo_0219_4.jpeg"}
+          alt={"kuhee_insoo_0219_4.jpeg"}
+        ></img>
+        <img
+          src={"/album/kuhee_insoo_0219_5.jpeg"}
+          alt={"kuhee_insoo_0219_5.jpeg"}
+        ></img>
+        <img
+          src={"/album/kuhee_insoo_0219_6.jpeg"}
+          alt={"kuhee_insoo_0219_6.jpeg"}
+        ></img>
+      </AlbumItem>
+      <AlbumItem>
         <AlbumTitle>2024.02.16</AlbumTitle>
         <img
           src={"/album/kuhee_insoo_0216_3.jpeg"}

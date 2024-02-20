@@ -13,24 +13,15 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../libs/utils/api";
 import PostLoading from "../components/PostLoading";
 
-// const dummyItems = Array.from({ length: 20 }, (_, index) => ({
-//   id: `${index}-post`,
-//   content: index.toString(36),
-//   createdAt: new Date().toISOString(),
-// }));
 interface PostContextProps {
   onClickPostItem: (id: string, mode: "create" | "view") => void;
   loadMorePost: (cursor: number) => void;
   onClickPostLike: (id: string, like: number) => void;
-  //   selectedPostItemId: string;
-  //   setSelectedPostItemId: Dispatch<React.SetStateAction<string>>;
 }
 export const PostContext = createContext<PostContextProps>({
   onClickPostItem: () => {},
   loadMorePost: () => {},
   onClickPostLike: () => {},
-  //   selectedPostItemId: "",
-  //   setSelectedPostItemId: () => {},
 });
 
 interface PostPageProps {}

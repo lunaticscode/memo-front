@@ -1,16 +1,56 @@
 import { initializeApp, FirebaseOptions, FirebaseApp } from "firebase/app";
-import { Messaging, getMessaging } from "firebase/messaging";
+import {
+  Messaging,
+  getMessaging,
+  getToken,
+  onMessage,
+} from "firebase/messaging";
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: "AIzaSyB1xwlzbn9FBsahjufb5-puH_SGc8LwNtw",
-  authDomain: "humanwater-pjt.firebaseapp.com",
-  projectId: "humanwater-pjt",
-  storageBucket: "humanwater-pjt.appspot.com",
-  messagingSenderId: "348646425467",
-  appId: "1:348646425467:web:210f8ea0827bd63fe9b3de",
-  measurementId: "G-KEGN47D6L4",
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-const app: FirebaseApp = initializeApp(firebaseConfig);
+export const app: FirebaseApp = initializeApp(firebaseConfig);
 export const message: Messaging = getMessaging(app);
+
+const getNotificationPermission = async () => {
+  const permission = await Notification.requestPermission();
+  console.log(permission);
+};
+
+export const getFcmToken = async () => {
+  await getNotificationPermission();
+  getToken(message, {
+    vapidKey: process.env.REACT_APP_FIREBASE_VAPID_PUBLIC_KEY,
+  })
+    .then((currentToken) => {
+      if (currentToken) {
+        console.log(currentToken);
+      } else {
+        console.log(
+          "No registration token available. Request permission to generate one."
+        );
+        // ...
+      }
+    })
+    .catch((err) => {
+      console.log("An error occurred while retrieving token. ", err);
+      // ...
+    });
+};
+onMessage(message, (payload) => {
+  console.log("asdasd");
+  console.log(payload);
+});
+
+// .getToken(message, {
+//   vapidKey: process.env.REACT_APP_FIREBASE_VAPID_PUBLIC_KEY,
+// });
+
 // console.log(message);

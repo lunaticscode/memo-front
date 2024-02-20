@@ -9,7 +9,7 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
-import { message } from "./fcm";
+import { message, getFcmToken } from "./fcm";
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
     // [::1] is the IPv6 localhost address.
@@ -26,8 +26,10 @@ type Config = {
 };
 
 export async function register(config?: Config) {
-  console.log(message);
+  // console.log(message);
+
   const permission = await Notification.requestPermission();
+  await getFcmToken();
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
 
