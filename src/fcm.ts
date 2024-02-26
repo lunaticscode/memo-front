@@ -77,10 +77,8 @@ export const getFcmToken = async () => {
   });
 };
 onMessage(message, (payload) => {
-  console.log("asdasd");
-  alert("asdasd");
-  new Notification("asd", { body: "asdasd", data: "asdasd" }).onshow = (a) => {
-    console.log({ a });
-  };
-  console.log(payload);
+  return new Notification(payload.notification?.title || "title", {
+    body: payload.notification?.body,
+    data: "asdasd",
+  });
 });

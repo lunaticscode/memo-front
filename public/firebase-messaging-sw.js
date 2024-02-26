@@ -46,7 +46,7 @@ if (messaging) {
         icon: "/firebase-logo.png",
       };
 
-      new Notification("hi there");
+      return new Notification("hi there");
 
       self.navigator.serviceWorker.ready.then((registration) => {
         registration.showNotification(notificationTitle, notificationOptions);
