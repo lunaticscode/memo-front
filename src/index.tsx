@@ -48,9 +48,9 @@ root.render(
 reportWebVitals();
 swRegistration.register({
   onUpdate(registration) {
-    console.log(registration.pushManager.permissionState());
+    // console.log(registration.pushManager.permissionState());
   },
   onSuccess(registration) {
-    console.log(registration.pushManager.permissionState());
+    // console.log(registration.pushManager.permissionState());
   },
 });

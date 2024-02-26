@@ -7,8 +7,6 @@ import {
   useState,
 } from "react";
 import PostList from "../components/post/PostList";
-import { createPortal } from "react-dom";
-import PostModal from "../components/post/PostModal";
 import { useNavigate } from "react-router-dom";
 import { api } from "../libs/utils/api";
 import PostLoading from "../components/PostLoading";
@@ -28,8 +26,6 @@ interface PostPageProps {}
 const PostPage: FC<PostPageProps> = () => {
   const navigate = useNavigate();
   const [postItems, setPostItems] = useState([]);
-  const [modalVisble, setModalVisible] = useState(false);
-  const [modalMode, setModalMode] = useState<"create" | "view">("create");
   const [isLoading, setIsLoading] = useState(false);
 
   const MemoPostList = useMemo(() => {
@@ -37,14 +33,9 @@ const PostPage: FC<PostPageProps> = () => {
   }, [postItems]);
 
   const handleClickAdd = useCallback(() => {
-    // setModalVisible(true);
-    // setModalMode("create");
     navigate("/postedit");
   }, []);
-  const onClickPostItem = (id: string, mode?: "create" | "view") => {
-    setModalVisible(true);
-    setModalMode(mode || "create");
-  };
+  const onClickPostItem = (id: string, mode?: "create" | "view") => {};
 
   const onClickPostLike = async (id: string, like: number) => {
     setIsLoading(true);
@@ -57,7 +48,7 @@ const PostPage: FC<PostPageProps> = () => {
     if (updateLikeResult) {
       setPostItemData();
     } else {
-      alert("좋아요 업데이트 오류..!!");
+      alert("좋아요 업데이트 오류!");
     }
   };
 

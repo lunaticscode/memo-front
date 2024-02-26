@@ -4,6 +4,7 @@ import {
   getMessaging,
   getToken,
   onMessage,
+  isSupported,
 } from "firebase/messaging";
 
 const firebaseConfig: FirebaseOptions = {
@@ -20,37 +21,66 @@ export const app: FirebaseApp = initializeApp(firebaseConfig);
 export const message: Messaging = getMessaging(app);
 
 const getNotificationPermission = async () => {
-  const permission = await Notification.requestPermission();
-  console.log(permission);
+  try {
+    const permission = await Notification.requestPermission().catch((err) =>
+      console.log(err)
+    );
+  } catch (err) {
+    console.log({ err });
+  }
+};
+export const getOrRegisterServiceWorker = () => {
+  if (
+    "serviceWorker" in navigator &&
+    typeof window.navigator.serviceWorker !== "undefined"
+  ) {
+    return window.navigator.serviceWorker
+      .getRegistration("/firebase-push-notification-scope")
+      .then((serviceWorker) => {
+        if (serviceWorker) return serviceWorker;
+        return window.navigator.serviceWorker.register(
+          "/firebase-messaging-sw.js",
+          {
+            scope: "/firebase-push-notification-scope",
+          }
+        );
+      });
+  }
+  throw new Error("The browser doesn`t support service worker.");
 };
 
 export const getFcmToken = async () => {
+  const supported = await isSupported();
+  if (!supported) {
+    return;
+  }
   await getNotificationPermission();
-  getToken(message, {
-    vapidKey: process.env.REACT_APP_FIREBASE_VAPID_PUBLIC_KEY,
-  })
-    .then((currentToken) => {
-      if (currentToken) {
-        console.log(currentToken);
-      } else {
-        console.log(
-          "No registration token available. Request permission to generate one."
-        );
-        // ...
-      }
-    })
-    .catch((err) => {
-      console.log("An error occurred while retrieving token. ", err);
-      // ...
-    });
+  new Notification("asdasd");
+  getOrRegisterServiceWorker().then(async (serviceWorkerRegistration) => {
+    return Promise.resolve(
+      getToken(message, {
+        vapidKey: process.env.REACT_APP_FIREBASE_VAPID_PUBLIC_KEY,
+      })
+        .then((currentToken) => {
+          if (currentToken) {
+            console.log(currentToken);
+          } else {
+            console.log(
+              "No registration token available. Request permission to generate one."
+            );
+          }
+        })
+        .catch((err) => {
+          console.log("An error occurred while retrieving token. ", err);
+        })
+    );
+  });
 };
 onMessage(message, (payload) => {
   console.log("asdasd");
+  alert("asdasd");
+  new Notification("asd", { body: "asdasd", data: "asdasd" }).onshow = (a) => {
+    console.log({ a });
+  };
   console.log(payload);
 });
-
-// .getToken(message, {
-//   vapidKey: process.env.REACT_APP_FIREBASE_VAPID_PUBLIC_KEY,
-// });
-
-// console.log(message);
