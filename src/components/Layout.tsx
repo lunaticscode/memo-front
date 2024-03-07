@@ -17,16 +17,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const { isAuth } = useAuth();
 
-  const execNavigate = () => {
-    Notification.requestPermission().then(async (res) => {
-      console.log(res);
-      const noti = await new Notification("asdasdasd");
-      console.log({ noti });
-    });
-  };
-
   useEffect(() => {
-    execNavigate();
     if (!validPaths.includes(pathname)) {
       navigate("/");
     }
