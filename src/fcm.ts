@@ -6,6 +6,7 @@ import {
   onMessage,
   isSupported,
 } from "firebase/messaging";
+import { api } from "./libs/utils/api";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -49,6 +50,14 @@ export const getOrRegisterServiceWorker = () => {
   throw new Error("The browser doesn`t support service worker.");
 };
 
+const setFcmToken = async (token: string) => {
+  console.log("setFcmToken", token);
+  return await api.post("/fcm", {
+    user: localStorage.getItem("user"),
+    token,
+  });
+};
+
 export const getFcmToken = async () => {
   const supported = await isSupported();
   if (!supported) {
@@ -64,6 +73,7 @@ export const getFcmToken = async () => {
         .then((currentToken) => {
           if (currentToken) {
             console.log(currentToken);
+            setFcmToken(currentToken);
           } else {
             console.log(
               "No registration token available. Request permission to generate one."
@@ -76,6 +86,7 @@ export const getFcmToken = async () => {
     );
   });
 };
+
 onMessage(message, (payload) => {
   return new Notification(payload.notification?.title || "title", {
     body: payload.notification?.body,

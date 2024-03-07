@@ -54,8 +54,16 @@ const CalendarPage: FC<CalendarPageProps> = () => {
     setCalendarData(nowDate, type);
     setDefaultLabelData();
   }, []);
+  const handleClickAlarm = async () => {
+    const result = await api.post("/fcm/broadcast", {
+      title: "test-title",
+      content: "test-content",
+    });
+    console.log({ result });
+  };
   return (
     <>
+      <button onClick={handleClickAlarm}>alarm-test</button>
       <Calendar
         calendarDataList={calendarDataList}
         value={nowDate}
